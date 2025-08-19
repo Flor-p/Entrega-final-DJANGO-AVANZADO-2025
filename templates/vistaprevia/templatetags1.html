@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load mi_tienda %}
+{% block content %}
+
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Hola, estoy en templatetags</h1>
+            {% autoescape on %}
+            <p>{{ cross_site_scripting }}</p>
+            {% endautoescape %}
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Trabajando con comentarios</h1>
+            <p>Rendered text with {{ fecha_de_hoy }}</p>
+        </div>
+    </div>
+</div>
+
+<!-- Cycle Tag Example -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Viendo el ciclo</h1>
+            <ul class="list-group">
+                {% for elemento in mi_lista %}
+                    <li class="list-group-item {% cycle 'row1' 'row2' 'row3' %}">
+                        {{ elemento }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Empty List Example -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Viendo listas vacías</h1>
+            <ul class="list-group">
+                {% for elemento in mi_lista2 %}
+                    <li class="list-group-item {% cycle 'row1' 'row2' 'row3' %}">
+                        {{ elemento }}
+                    </li>
+                {% empty %}
+                    <li class="list-group-item {% cycle 'row1' 'row2' 'row3' %}">
+                        No existen elementos
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Filter Example -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Viendo filtros</h1>
+            {% filter force_escape|lower %}
+                This text will be HTML-escaped, and will appear in all lowercase.
+            {% endfilter %}
+        </div>
+    </div>
+</div>
+
+<!-- Session Example -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Uso de Sessions</h1>
+        </div>
+
+        {% for producto in los_productos %}
+            <div class="col-12 col-lg-4 mb-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static 'img/4.jpg' %}{{ producto.imagen }}" class="card-img-top" alt="{{ producto.producto }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.producto }}</h5>
+                        <p class="card-text">{{ producto.descripcion|slice:":95" }}</p>
+                        {% if request.session.el_pedido %}
+                            <span>{{ producto|en_pedido:request.session.el_pedido }}</span>
+                        {% endif %}
+                        <hr/>
+                        <form action="/templatetags1" method="post">{% csrf_token %}
+                            <input type="hidden" name="producto" value="{{ producto.id }}"/>
+                            <input type="submit" class="btn btn-primary float-end" value="Agregar"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include "descripcion_lateral.html" with nombre="Flor" apellido="Paramidani" %}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <br/>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

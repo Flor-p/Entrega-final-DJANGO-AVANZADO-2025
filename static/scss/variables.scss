@@ -1,0 +1,47 @@
+/* Global Colors */
+$background-color1: #000000;
+$gradient-bg: linear-gradient(90deg, hsla(280, 84%, 41%, 1) 0%, hsla(218, 97%, 56%, 1) 100%);
+
+$font-color1: #FFFFFF;  // Ensure this is defined before being used
+
+/* ABOUT SECTION variables */
+$about-section-padding: 120px;
+
+/* SECTION TITLES variables */
+$section-title-font-size: 2rem;
+
+/* Button variables */
+$button-bg-color: transparent; 
+$button-border-color: #ffffff; 
+$button-border-width: 2px; 
+$button-border-radius: 10px; 
+$button-padding: 10px 20px; 
+
+
+/* Define ABOUT SECTION styles using SCSS variables */
+#about {
+    background: $gradient-bg;
+    padding: $about-section-padding;
+}
+
+
+    .container {
+        .sec-title {
+            text-align: center;
+
+            h1 {
+                color: $font-color1;
+                font-size: $section-title-font-size;
+                margin-bottom: 0px;
+            }
+
+            .btn {
+                background-color: $button-bg-color;
+                color: $font-color1;
+                border: $button-border-width solid $button-border-color;
+                border-radius: $button-border-radius;
+                padding: $button-padding;
+            }
+        }
+    }
+}
