@@ -34,15 +34,13 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 INSTALLED_APPS = [
     'django.contrib.sites',
-#   'registration', #should be immediately above 'django.contrib.admin'
-    #apps por defecto
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-   
+
     # apps terceros
     'captcha',
     #mis apps
@@ -53,7 +51,11 @@ INSTALLED_APPS = [
     'usuario.apps.UsuarioConfig',
     'librosrestapi.apps.LibrosrestapiConfig',
     'rest_framework',
+    'django.contrib.sitemaps',
+
  ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -164,7 +166,7 @@ LOGIN_REDIRECT_URL = '/vistaprevia'
 LOGIN_URL = 'django.contrib.auth.views.login'
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
 REGISTRATION_AUTO_LOGIN = True # Automatically log the user in.
-SITE_ID = 1
+
 
 
 #if DEBUG:
